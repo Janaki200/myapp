@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "38752546690",
+    "project_id": "diet-hut",
+    "storage_bucket": "diet-hut.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:38752546690:android:d7629fee639bee9c8e699b",
+        "android_client_info": {
+          "package_name": "com.example.myapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDrpGV_YOzj_LxP4dyfQ8yron8YSugrHoE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
