@@ -1,7 +1,7 @@
 //import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:myapp/circle.dart';
+
 import 'package:myapp/data/constants/app_colors.dart';
 import 'package:myapp/data/constants/food_model.dart';
 import 'package:myapp/data/constants/logo.dart';
@@ -53,6 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void logout() async {
+
     await FirebaseAuth.instance.signOut();
     Navigator.pushAndRemoveUntil(
         context,
