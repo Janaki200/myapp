@@ -53,9 +53,7 @@ class _RegisterState extends State<Register> {
           textColor: Colors.white,
           fontSize: 16.0);
     }
-    setState(() {
-      isLoading = false;
-    });
+   
   }
 
   bool isLoading = false;

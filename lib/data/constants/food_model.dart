@@ -1,5 +1,6 @@
 class FoodModel {
   static const List suggestions = [
+     {"id": 0, "name": "All", "image": ""},
     {"id": 1, "name": "Salads", "image": "assets/items/veg salad.jpg"},
     {"id": 2, "name": "Shakes", "image": "assets/items/strawberry shake.jpg"},
     {
@@ -24,7 +25,12 @@ class FoodModel {
           "avocado,cherry tomatoes ,spinach,corn,pulses with lemon dressing",
       "price": 140.00,
       "category": "Salads",
-      "image": "assets/items/veggie bowl.jpg"
+      "image": "assets/items/veggie bowl.jpg",
+      //When the cusomization is not available
+      "isCustomizable":false,
+      "customValues":[
+
+      ]
     },
     {
       "id": 2,
@@ -61,7 +67,19 @@ class FoodModel {
       "recipe": "airfried chicken breast ,toated broccoli ,rice",
       "price": 240.00,
       "category": "Lunch Bowl",
-      "image": "assets/items/chicken breast platter.jpg"
+      "image": "assets/items/chicken breast platter.jpg",
+      //When the cusomization is  available
+       "isCustomizable":true,
+      "customValues":[
+          {
+            "name":"Chicken",
+            "price":50.00
+          },
+          {
+           "name":"Brocoli",
+           "price":25.00
+          }
+      ]
     },
     {
       "id": 6,
@@ -146,13 +164,13 @@ class FoodModel {
     {
       "id": 15,
       "name": "Deit dinner pack",
-// Suggested code may be subject to a license. Learn more: ~LicenseLog:1608642044.
+
       "description": "griiled chicken with chana pulse and salad",
       "recipe":
           "boneless Chicken,chana pulses,brocclli,cherry tomatoes,cucumber",
       "category": "Dinner Bowl",
       "price": 90.00,
-      "image": "deit dinner pack with chicken.jpg"
+      "image": "assets/items/deit dinner pack with chicken.jpg"
     },
     {
       "id": 16,
@@ -160,10 +178,9 @@ class FoodModel {
       "description": "Masala grilled Chicken ",
       "recipe": "2 grilled Chicken Breast with Spinach ",
       "price": 190.00,
-// Suggested code may be subject to a license. Learn more: ~LicenseLog:569828001.
-// Suggested code may be subject to a license. Learn more: ~LicenseLog:152504532.
+
       "category": "Dinner Bowl",
-// Suggested code may be subject to a license. Learn more: ~LicenseLog:1119087183.
+
       "image": "assets/items/grilled chicken breast.jpg"
     },
     {
@@ -172,10 +189,9 @@ class FoodModel {
       "description": "Grilled chicken with pulses and asperatus",
       "recipe": "2-3 grilled chicken Breast,asperatus,chana pulses",
       "price": 260.00,
-// Suggested code may be subject to a license. Learn more: ~LicenseLog:3210212143.
-// Suggested code may be subject to a license. Learn more: ~LicenseLog:729718586.
+
       "category": "Lunch Bowl",
-// Suggested code may be subject to a license. Learn more: ~LicenseLog:2055996893.
+
       "image": "assets/items/heavy lunch meal.jpg"
     },
   ];

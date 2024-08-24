@@ -14,24 +14,44 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-// Suggested code may be subject to a license. Learn more: ~LicenseLog:4099487741.
-  final List _posts = [
-    'post 1',
-    'post 2',
-    'post 3',
-    'post 4',
-    'post 5',
-    'post 6'
-  ];
+  List items = [];
+  List suggestions = [];
+  List filteredItems = [];
+  String selectedFilter = "";
+  @override
+  void initState() {
+    // TODO: implement initState
+    initData();
+    super.initState();
+  }
 
-  final List _stories = [
-    'story 1',
-    'story 2',
-    'story 3',
-    'story 4',
-    'story 5',
-    'story 6'
-  ];
+  void initData() {
+    setState(() {
+      items = FoodModel.foodItems;
+      suggestions = FoodModel.suggestions;
+      filteredItems= FoodModel.foodItems;
+    });
+    filter(selectedCategory: "All");
+  }
+
+  void filter({required String selectedCategory}) {
+    if (selectedCategory == 'All') {
+     setState(() {
+       filteredItems= items;
+       selectedFilter = selectedCategory;
+     });
+    }else{
+       setState(() {
+      filteredItems = items.where((item) {
+        return item['category'] == selectedCategory;
+
+      }).toList();
+       selectedFilter = selectedCategory;
+    });
+    }
+   
+  }
+
   void logout() async {
     await FirebaseAuth.instance.signOut();
     Navigator.pushAndRemoveUntil(
@@ -61,7 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     borderRadius: BorderRadius.circular(50)),
                 child: IconButton(
                     onPressed: () {},
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.person,
                       color: AppColors.primaryColor,
                     )),
@@ -74,15 +94,50 @@ class _MyHomePageState extends State<MyHomePage> {
 // Suggested code may be subject to a license. Learn more: ~LicenseLog:3580083208.
             //deit hut suggestions
             Container(
-              height: 150,
+              height: 120,
               child: ListView.builder(
-                  itemCount: FoodModel.suggestions.length,
+                  itemCount: suggestions.length,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) {
-                    return MyCircle(
-                      image: FoodModel.suggestions[index]['image'],
-                      name: FoodModel.suggestions[index]['name'],
-                    );
+                  
+                    return GestureDetector(
+                      onTap: () {
+                        
+                        filter(selectedCategory: suggestions[index]['name']);
+                      
+                      },
+                        child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              children: [
+                                Container(
+                                  height: 80,
+                                  width: 80,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    border:selectedFilter == suggestions[index]['name']? Border.all(color: AppColors.primaryColor,width:3):Border.all(color: Colors.black) ,
+                                    color: AppColors.surfaceColor,
+                                    image: suggestions[index]['image'].isNotEmpty
+                                        ? DecorationImage(
+                                            image: AssetImage(suggestions[index]['image']),
+                                            fit: BoxFit.cover,
+                                          )
+                                        : null,
+                                  ),
+                                  child: suggestions[index]['image'].isEmpty
+                                      ? const Padding(
+                                          padding: EdgeInsets.all(8.0),
+                                          child: Icon(
+                                            Icons.food_bank,
+                                            size: 50,
+                                            color: AppColors.primaryColor,
+                                          ),
+                                        )
+                                      : null,
+                                ),
+                                Text(suggestions[index]['name'])
+                              ],
+                            )));
                   }),
             ),
 
@@ -90,17 +145,18 @@ class _MyHomePageState extends State<MyHomePage> {
             //deit hut posts
             Expanded(
               child: ListView.builder(
-                itemCount: FoodModel.foodItems.length,
+                itemCount: filteredItems.length,
                 itemBuilder: (context, index) {
-                  return MySquare(
-                    category: FoodModel.foodItems[index]['category'],
-                    description: FoodModel.foodItems[index]['description'],
-                    image: FoodModel.foodItems[index]['image'],
-                    name: FoodModel.foodItems[index]['name'],
-                    price: FoodModel.foodItems[index]['price'].toString(),
-                    recipe: FoodModel.foodItems[index]['recipe'],
+                  return 
+                  MySquare(
+                    category: filteredItems[index]['category'],
+                    description: filteredItems[index]['description'],
+                    image: filteredItems[index]['image'],
+                    name: filteredItems[index]['name'],
+                    price: filteredItems[index]['price'].toString(),
+                    recipe: filteredItems[index]['recipe'],
                   );
-                  // Suggested code may be subject to a license. Learn more: ~LicenseLog:2578343940.
+                 
                 },
               ),
             ),
