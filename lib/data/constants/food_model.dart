@@ -1,12 +1,11 @@
 class FoodModel {
   static const List suggestions = [
-     {"id": 0, "name": "All", "image": ""},
+    {"id": 0, "name": "All", "image": ""},
     {"id": 1, "name": "Salads", "image": "assets/items/veg salad.jpg"},
     {"id": 2, "name": "Shakes", "image": "assets/items/strawberry shake.jpg"},
     {
       "id": 3,
       "name": "Lunch Bowl",
-// Suggested code may be subject to a license. Learn more: ~LicenseLog:1741184031.
       "image": "assets/items/deit lunch pack.jpg"
     },
     {
@@ -27,10 +26,8 @@ class FoodModel {
       "category": "Salads",
       "image": "assets/items/veggie bowl.jpg",
       //When the cusomization is not available
-      "isCustomizable":false,
-      "customValues":[
-
-      ]
+      "isCustomizable": false,
+      "customValues": []
     },
     {
       "id": 2,
@@ -40,7 +37,13 @@ class FoodModel {
       "recipe": " grilled chicken breast ,broccoli,sprouted cereals,cabbages",
       "price": 210.00,
       "category": "Lunch Bowl",
-      "image": "assets/items/Balanced bowl.jpg"
+      "image": "assets/items/Balanced bowl.jpg",
+      "isCustomisable": true,
+      "customValues": [
+        {"name": "Chicken", "price": 50.00},
+        {"name": "Broccoli", "price": 25.00},
+        {"name": "Cabbages", "price": 15.00}
+      ]
     },
     {
       "id": 3,
@@ -49,7 +52,12 @@ class FoodModel {
       "recipe": "Blueberry,honey,milk",
       "price": 180.00,
       "category": "Shakes",
-      "image": "assets/items/blueberry shake.jpg"
+      "image": "assets/items/blueberry shake.jpg",
+      "isCustomizable": true,
+      "customValues": [
+        {"name": "Blueberry", "price": 50.00},
+        {"name": "Honey", "price": 25.00}
+      ]
     },
     {
       "id": 4,
@@ -58,7 +66,13 @@ class FoodModel {
       "recipe": "toated broccoli ,carrots,tomatoes,onion,lemon dressing",
       "price": 140.00,
       "category": "Salads",
-      "image": "assets/items/broccoli salad.jpg"
+      "image": "assets/items/broccoli salad.jpg",
+      "isCustomizable": true,
+      "customValues": [
+        {"name": "Broccoli", "price": 50.00},
+        {"name": "Carrots", "price": 25.00},
+        {"name": "Tomatoes", "price": 15.00}
+      ]
     },
     {
       "id": 5,
@@ -69,16 +83,10 @@ class FoodModel {
       "category": "Lunch Bowl",
       "image": "assets/items/chicken breast platter.jpg",
       //When the cusomization is  available
-       "isCustomizable":true,
-      "customValues":[
-          {
-            "name":"Chicken",
-            "price":50.00
-          },
-          {
-           "name":"Brocoli",
-           "price":25.00
-          }
+      "isCustomizable": true,
+      "customValues": [
+        {"name": "Chicken", "price": 50.00},
+        {"name": "Brocoli", "price": 25.00}
       ]
     },
     {
@@ -88,7 +96,13 @@ class FoodModel {
       "recipe": "lettuce,cucumber,cherry tomatoes with mayo dressing",
       "price": 140.00,
       "category": "Salads",
-      "image": "assets/items/veg salad.jpg"
+      "image": "assets/items/veg salad.jpg",
+      "isCustomizable": true,
+      "customValues": [
+        {"name": "Lettuce", "price": 40.00},
+        {"name": "Cucumber", "price": 20.00},
+        {"name": "Tomatoes", "price": 15.00}
+      ]
     },
     {
       "id": 8,
@@ -97,7 +111,12 @@ class FoodModel {
       "recipe": "cucumber,tomatoes,lettuce,pineapple,mayo,shredded cheese",
       "price": 160.00,
       "category": "Salads",
-      "image": "assets/items/veg salad with shredded cheese.jpg"
+      "image": "assets/items/veg salad with shredded cheese.jpg",
+      "isCustomizable": true,
+      "customValues": [
+        {"name": "Lettuce", "price": 40.00},
+        {"name": "cheese", "price": 30.00},
+      ]
     },
     {
       "id": 9,
@@ -107,7 +126,13 @@ class FoodModel {
       "recipe": "masala grilled chicken,salad,boiled egg",
       "price": 230.00,
       "category": "Lunch Bowl",
-      "image": "assets/items/deit lunch pack.jpg"
+      "image": "assets/items/deit lunch pack.jpg",
+      "isCustomizable": true,
+      "customValues": [
+        {"name": "Chicken", "price": 50.00},
+        {"name": "Salad", "price": 60.00},
+        {"name": "Egg", "price": 15.00}
+      ]
     },
     {
       "id": 10,
@@ -116,7 +141,12 @@ class FoodModel {
       "recipe": "Oat milk,peanut,mint",
       "price": 180.00,
       "category": "Shakes",
-      "image": "assets/items/deit shake.jpg"
+      "image": "assets/items/deit shake.jpg",
+      "isCustomizable": true,
+      "customValues": [
+        {"name": "mint", "price": 10.00},
+        {"name": "Peanut", "price": 20.00},
+      ]
     },
     {
       "id": 11,
@@ -125,8 +155,13 @@ class FoodModel {
       "recipe": "Avocado,mint,Grape fruit",
       "price": 160.00,
       "category": "Shakes",
-// Suggested code may be subject to a license. Learn more: ~LicenseLog:2710103428.
-      "image": "assets/items/grapefruit avocado shake.jpg"
+      "image": "assets/items/grapefruit avocado shake.jpg",
+      "isCustomizable": true,
+      "customValues": [
+        {"name": "Avocado", "price": 20.00},
+        {"name": "Grapefruit", "price": 20.00},
+        {"name": "mint", "price": 10.00}
+      ]
     },
     {
       "id": 12,
@@ -136,9 +171,13 @@ class FoodModel {
       "recipe": "zuchini,boiled chicken breast,rice,cookrd cereals",
       "price": 250.00,
       "category": "Dinner Bowl",
-// Suggested code may be subject to a license. Learn more: ~LicenseLog:1727610349.
-// Suggested code may be subject to a license. Learn more: ~LicenseLog:303632296.
-      "image": "assets/items/mixed veggies chicken bowl.jpg"
+      "image": "assets/items/mixed veggies chicken bowl.jpg",
+      "isCustomizable": true,
+      "customValues": [
+        {"name": "Zuchini", "price": 20.00},
+        {"name": "Chicken", "price": 50.00},
+        {"name": "Rice", "price": 35.00},
+      ]
     },
     {
       "id": 13,
@@ -146,9 +185,13 @@ class FoodModel {
       "description": "Sugarfree Strawberry shake",
       "recipe": "strawberry,honey,milk",
       "price": 90.00,
-// Suggested code may be subject to a license. Learn more: ~LicenseLog:1963400077.
       "category": "Shakes",
-      "image": "assets/items/strawberry shake.jpg"
+      "image": "assets/items/strawberry shake.jpg",
+      "isCustomizable": true,
+      "customValues": [
+        {"name": "Strawberry", "price": 40.00},
+        {"name": "Honey", "price": 20.00}
+      ]
     },
     {
       "id": 14,
@@ -156,21 +199,30 @@ class FoodModel {
       "description": "Sugarfree high in vitamin chia Strawberry shake",
       "recipe": "strawberry,honey,milk,soaked chia seed",
       "price": 110.00,
-// Suggested code may be subject to a license. Learn more: ~LicenseLog:869329952.
       "category": "Shakes",
-// Suggested code may be subject to a license. Learn more: ~LicenseLog:1453921379.
-      "image": "assets/items/strawberry chia shake.jpg"
+      "image": "assets/items/strawberry chia shake.jpg",
+      "isCustomizable": true,
+      "customValues": [
+        {"name": "Strawberry", "price": 40.00},
+        {"name": "Honey", "price": 20.00},
+        {"name": "Chia seed", "price": 10.00}
+      ]
     },
     {
       "id": 15,
       "name": "Deit dinner pack",
-
       "description": "griiled chicken with chana pulse and salad",
       "recipe":
           "boneless Chicken,chana pulses,brocclli,cherry tomatoes,cucumber",
       "category": "Dinner Bowl",
       "price": 90.00,
-      "image": "assets/items/deit dinner pack with chicken.jpg"
+      "image": "assets/items/deit dinner pack with chicken.jpg",
+      "isCustomizable": true,
+      "customValues": [
+        {"name": "Chicken", "price": 50.00},
+        {"name": "Brocoli", "price": 25.00},
+        {"name": "Salad", "price": 60.00}
+      ]
     },
     {
       "id": 16,
@@ -178,10 +230,13 @@ class FoodModel {
       "description": "Masala grilled Chicken ",
       "recipe": "2 grilled Chicken Breast with Spinach ",
       "price": 190.00,
-
       "category": "Dinner Bowl",
-
-      "image": "assets/items/grilled chicken breast.jpg"
+      "image": "assets/items/grilled chicken breast.jpg",
+      "isCustomizable": true,
+      "customValues": [
+        {"name": "Chicken", "price": 50.00},
+        {"name": "Spinach", "price": 25.00}
+      ]
     },
     {
       "id": 17,
@@ -189,10 +244,13 @@ class FoodModel {
       "description": "Grilled chicken with pulses and asperatus",
       "recipe": "2-3 grilled chicken Breast,asperatus,chana pulses",
       "price": 260.00,
-
       "category": "Lunch Bowl",
-
-      "image": "assets/items/heavy lunch meal.jpg"
+      "image": "assets/items/heavy lunch meal.jpg",
+      "isCustomizable": true,
+      "customValues": [
+        {"name": "Chicken", "price": 50.00},
+        {"name": "Asparagus", "price": 25.00},
+      ]
     },
   ];
 }
