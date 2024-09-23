@@ -38,7 +38,7 @@ class FoodModel {
       "price": 210.00,
       "category": "Lunch Bowl",
       "image": "assets/items/Balanced bowl.jpg",
-      "isCustomisable": true,
+      "isCustomizable": true,
       "customValues": [
         {"name": "Chicken", "price": 50.00},
         {"name": "Broccoli", "price": 25.00},

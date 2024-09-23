@@ -5,10 +5,11 @@ import 'package:google_fonts/google_fonts.dart';
 class TextLogo extends StatelessWidget {
   final Color? color;
   final double? fontSize;
-  const TextLogo({super.key,required this.color,required this.fontSize});
+  final String text;
+  const TextLogo({super.key,required this.color,required this.fontSize,required this.text});
 
   @override
   Widget build(BuildContext context) {
-    return  Text('Diet Hut',style: GoogleFonts.satisfy(fontSize: fontSize,color: color),);
+    return  Text(text==""?"Diet Hut":text,style: GoogleFonts.satisfy(fontSize: fontSize,color: color),);
   }
 }

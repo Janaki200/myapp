@@ -96,6 +96,7 @@ class _RegisterState extends State<Register> {
                         fontSize: 30,
                       )),
                   TextLogo(
+                       text: '',
                     color: AppColors.primaryColor,
                     fontSize: 40,
                   ),

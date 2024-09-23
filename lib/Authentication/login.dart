@@ -65,6 +65,7 @@ class _MyloginPageState extends State<MyloginPage> {
                         fontSize: 30,
                       )),
                   TextLogo(
+                    text: '',
                     color: AppColors.primaryColor,
                     fontSize: 50,
                   ),

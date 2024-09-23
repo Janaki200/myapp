@@ -35,6 +35,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
     backgroundColor:AppColors.primaryColor,
     body: Center(
       child: TextLogo(
+           text: '',
                     color: AppColors.surfaceColor,
                     fontSize: 50,
                   ),
