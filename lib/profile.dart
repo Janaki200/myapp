@@ -86,7 +86,9 @@ class _ProfilePageState extends State<ProfilePage> {
                 decoration: BoxDecoration(
                     border: Border.all(),
                     borderRadius: BorderRadius.circular(12)),
-                child: Text(userDetails['username'] ?? ""),
+                child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                  child: Text("UserName : "+userDetails['username'])),
               ),
               const SizedBox(
                 height: 20,
@@ -97,7 +99,9 @@ class _ProfilePageState extends State<ProfilePage> {
                 decoration: BoxDecoration(
                     border: Border.all(),
                     borderRadius: BorderRadius.circular(12)),
-                child: Text(userDetails['email'] ?? ""),
+                child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                  child: Text("Email : "+userDetails['email'] )),
               ),
               const SizedBox(
                 height: 20,
@@ -108,7 +112,9 @@ class _ProfilePageState extends State<ProfilePage> {
                 decoration: BoxDecoration(
                     border: Border.all(),
                     borderRadius: BorderRadius.circular(12)),
-                child: Text(userDetails['contact'] ?? ""),
+                child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                  child: Text("Contact : "+userDetails['contact'] )),
               ),
               const SizedBox(
                 height: 20,
@@ -119,7 +125,9 @@ class _ProfilePageState extends State<ProfilePage> {
                 decoration: BoxDecoration(
                     border: Border.all(),
                     borderRadius: BorderRadius.circular(12)),
-                child: Text(userDetails['address'] ?? ""),
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Text("Address : "+userDetails['address'])),
               ),
               const SizedBox(
                 height: 50,

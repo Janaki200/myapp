@@ -154,7 +154,7 @@ class _FoodItemCardState extends State<FoodItemCard> {
                           children: [
                             Expanded(
                               child: Text(
-                                element['name'],
+                                element['name'] +"(50g)",
                                 style: const TextStyle(
                                   fontSize: 18,
                                 ),

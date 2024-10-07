@@ -8,6 +8,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:myapp/data/constants/app_colors.dart';
 import 'package:myapp/data/constants/logo.dart';
 import 'package:myapp/loading_screen.dart';
+import 'package:myapp/widgets/app_loader.dart';
 import 'package:myapp/widgets/auth.textfield.dart';
 
 class MyloginPage extends StatefulWidget {
@@ -23,28 +24,41 @@ class _MyloginPageState extends State<MyloginPage> {
   final TextEditingController emailController = TextEditingController();
 
   final TextEditingController passwordController = TextEditingController();
-
-  void login() async{
+bool isLoading =false;
+  void login() async {
     try {
-  await FirebaseAuth.instance.signInWithEmailAndPassword(email: emailController.text, password: passwordController.text);
-  
-  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => LoadingScreen()), (route) => false);
-} on FirebaseAuthException catch (e) {
-  Fluttertoast.showToast(
-                                  msg: e.message!,
-                                  toastLength: Toast.LENGTH_SHORT,
-                                  gravity: ToastGravity.CENTER,
-                                  timeInSecForIosWeb: 1,
-                                  backgroundColor: Colors.red,
-                                  textColor: Colors.white,
-                                  fontSize: 16.0);
-  // TODO
-}
-   //TODO
+       setState(() {
+      isLoading =true;
+    });
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: emailController.text, password: passwordController.text);
+
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => LoadingScreen()),
+          (route) => false);
+    } on FirebaseAuthException catch (e) {
+       setState(() {
+      isLoading =false;
+    });
+      Fluttertoast.showToast(
+          msg: e.message!,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
+      // TODO
+    }
+    //TODO
   }
 
   @override
   Widget build(BuildContext context) {
+   if(isLoading){
+    return AppLoader();
+   }
     return Scaffold(
         backgroundColor: AppColors.surfaceColor,
         body: SizedBox(
@@ -93,33 +107,30 @@ class _MyloginPageState extends State<MyloginPage> {
                     onPressed: () {
                       if (emailController.text.isNotEmpty &&
                           passwordController.text.isNotEmpty) {
-                            if(EmailValidator.validate(emailController.text)){
-                              login();
-                            }else{
-                              Fluttertoast.showToast(
-                                  msg: "Enter a valid Email",
-                                  toastLength: Toast.LENGTH_SHORT,
-                                  gravity: ToastGravity.CENTER,
-                                  timeInSecForIosWeb: 1,
-                                  backgroundColor: Colors.red,
-                                  textColor: Colors.white,
-                                  fontSize: 16.0);
-                              //display alert message for invalid email
-                            }
-                          }else{
-                            Fluttertoast.showToast(
-                                msg:
-                                    "Invalid Email or Password",
-                                toastLength: Toast.LENGTH_SHORT,
-                                gravity: ToastGravity.CENTER,
-                                timeInSecForIosWeb: 1,
-                                backgroundColor: Colors.red,
-                                textColor: Colors.white,
-                                fontSize: 16.0);
-                          }
+                        if (EmailValidator.validate(emailController.text)) {
+                          login();
+                        } else {
+                          Fluttertoast.showToast(
+                              msg: "Enter a valid Email",
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.CENTER,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: Colors.red,
+                              textColor: Colors.white,
+                              fontSize: 16.0);
+                          //display alert message for invalid email
+                        }
+                      } else {
+                        Fluttertoast.showToast(
+                            msg: "Invalid Email or Password",
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.CENTER,
+                            timeInSecForIosWeb: 1,
+                            backgroundColor: Colors.red,
+                            textColor: Colors.white,
+                            fontSize: 16.0);
+                      }
                     },
-                      
-                    
                     color: AppColors.primaryColor,
                     child: const Text("Login"),
                     height: 48,
@@ -134,7 +145,8 @@ class _MyloginPageState extends State<MyloginPage> {
                     children: [
                       const Text("Don't have an account?"),
                       TextButton(
-                          onPressed: widget.togglePages, child: const Text("Register"))
+                          onPressed: widget.togglePages,
+                          child: const Text("Register"))
                     ],
                   )
                 ],

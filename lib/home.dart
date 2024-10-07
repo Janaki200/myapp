@@ -119,49 +119,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ],
         ),
-        drawer: NavigationDrawer(
-            backgroundColor: AppColors.primaryColor,
-            elevation: 8,
-            children: [
-              DrawerHeader(
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder:  (context) {
-                        return ProfilePage();
-                      },));
-                    },
-                    child: Container(
-                                    alignment: Alignment.center,
-                                    height: 100,
-                                    width: 100,
-                                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle, color: AppColors.surfaceColor),
-                                    child: const Icon(
-                    Icons.person,
-                    color: AppColors.primaryColor,
-                    size: 100,
-                                    ),
-                                  ),
-                  )),
-               ListTile(
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return OrderPage();
-                  },));
-                },
-                  trailing: Icon(
-                    Icons.arrow_right,
-                    color: AppColors.surfaceColor,
-                  ),
-                  title: Text("Orders",
-                      style: TextStyle(
-                        color: AppColors.surfaceColor,
-                      ))),
-           
-
-            
-            ],
-            ),
+       
         body: Column(
           children: [
 // Suggested code may be subject to a license. Learn more: ~LicenseLog:3580083208.

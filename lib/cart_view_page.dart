@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:myapp/bottom_nav.dart';
 import 'package:myapp/data/constants/app_colors.dart';
 import 'package:myapp/data/constants/logo.dart';
 import 'package:myapp/home.dart';
@@ -37,7 +38,6 @@ class _CartViewPageState extends State<CartViewPage> {
     super.initState();
   }
 
- 
   @override
   Widget build(BuildContext context) {
     if (isLoading) {
@@ -113,22 +113,59 @@ class _CartViewPageState extends State<CartViewPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const Divider(),
+
                             Text(customItems.isNotEmpty ? "Custom items" : "",
                                 style: const TextStyle(fontSize: 18)),
+
                             if (customItems.isNotEmpty)
-                              for (var e in customItems)
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(e['name']),
-                                    Text(
-                                      "${e['price']} ₹ (${e['qty']}) ",
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold),
-                                    )
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width,
+                                child: DataTable(
+                                  columnSpacing: 5,
+                                  columns:const [
+                                    DataColumn(
+                                      label: Text("Item"),
+                                    ),
+                                    DataColumn(
+                                      label: Text("Portion"),
+                                    ),
+                                    DataColumn(
+                                      label: Text("Qty"),
+                                    ),
+                                    DataColumn(
+                                      label: Text("Amount"),
+                                    ),
                                   ],
+                                  rows: customItems.map((itemData) {
+                                    return DataRow(
+                                      cells: [
+                                        DataCell(Text(itemData['name'])),
+                                        DataCell(Text(
+                                            "${itemData["qty"] * 50}g")),
+                                        DataCell(Text(itemData['qty']
+                                            .toString())), // Ensure correct data type
+                                        DataCell(Text(itemData['price']
+                                            .toString())), // Ensure correct data type
+                                      ],
+                                    );
+                                  }).toList(),
                                 ),
+                              ),
+                            //   for (var e in customItems)
+                            //     Row(
+                            //       mainAxisAlignment:
+                            //           MainAxisAlignment.spaceBetween,
+                            //       children: [
+                            //         Text(e['name']  ),
+                            //         Text((e),
+                            //         Text((e['qty'].toString()) ),
+                            //         Text(
+                            //           "${e['price']} ₹ ",
+                            //           style: const TextStyle(
+                            //               fontWeight: FontWeight.bold),
+                            //         )
+                            //       ],
+                            //     ),
                             if (customItems.isNotEmpty)
                               const SizedBox(
                                 height: 20,
@@ -193,7 +230,9 @@ class _CartViewPageState extends State<CartViewPage> {
                         showModalBottomSheet(
                           context: context,
                           builder: (context) {
-                            return PaymentBottomSheet(cartItems:cartItems,);
+                            return PaymentBottomSheet(
+                              cartItems: cartItems,
+                            );
                           },
                         );
                       },
@@ -216,8 +255,11 @@ class _CartViewPageState extends State<CartViewPage> {
 }
 
 class PaymentBottomSheet extends StatefulWidget {
-final   List<Map> cartItems;
-  const PaymentBottomSheet({super.key, required this.cartItems,});
+  final List<Map> cartItems;
+  const PaymentBottomSheet({
+    super.key,
+    required this.cartItems,
+  });
 
   @override
   State<PaymentBottomSheet> createState() => _PaymentBottomSheetState();
@@ -231,7 +273,7 @@ class _PaymentBottomSheetState extends State<PaymentBottomSheet> {
   final TextEditingController _cardNumberController = TextEditingController();
   final TextEditingController _cardExpiryController = TextEditingController();
   final TextEditingController _cardCvcController = TextEditingController();
-    final TextEditingController _gpayController = TextEditingController(); 
+  final TextEditingController _gpayController = TextEditingController();
   void _toggleSelection(int index) {
     setState(() {
       _cardSelected = index == 0;
@@ -239,27 +281,26 @@ class _PaymentBottomSheetState extends State<PaymentBottomSheet> {
       _cashOnDeliverySelected = index == 2;
     });
   }
- void placeOrder() async {
-String paymentMethode='';
-String payementDetails = "";
-  if(_cardSelected){
-    setState(() {
-      paymentMethode= "Card Payment";
-      payementDetails=_cardNumberController.text;
-    });
-  }else if(_gpaySelected){
-     setState(() {
-      paymentMethode= "Upi Payment";
-      payementDetails=_gpayController.text;
-    });
-  }else{
-     setState(() {
-      paymentMethode= "Cash on delivery";
-      payementDetails ="Cash on delivery";
-    });
-  }
 
-
+  void placeOrder() async {
+    String paymentMethode = '';
+    String payementDetails = "";
+    if (_cardSelected) {
+      setState(() {
+        paymentMethode = "Card Payment";
+        payementDetails = _cardNumberController.text;
+      });
+    } else if (_gpaySelected) {
+      setState(() {
+        paymentMethode = "Upi Payment";
+        payementDetails = _gpayController.text;
+      });
+    } else {
+      setState(() {
+        paymentMethode = "Cash on delivery";
+        payementDetails = "Cash on delivery";
+      });
+    }
 
     setState(() {
       isLoading = true;
@@ -280,25 +321,33 @@ String payementDetails = "";
       // final order =
       //     await FirebaseFirestore.instance.collection("orders").add(data);
       // final orderId = order.id;
-      List<String> customItem = [];
+      List<Map> customItem = [];
       for (var element in widget.cartItems) {
         List customItems = element['custom'];
         if (customItems.isNotEmpty) {
           for (var e in customItems) {
-            String data = e['name'] + "-" + e['qty'].toString();
+            final data = {
+              'item': e['name'],
+              'portion':"${e['qty'] * 50}₹",
+              'quantity':e['qty'].toString(),
+              'price':e['price'].toString()
+            };
             customItem.add(data);
           }
         }
         final orderData = {
-          "payment_methode":paymentMethode,
-          "payment_details":payementDetails,
+          "payment_methode": paymentMethode,
+          "payment_details": payementDetails,
           "userEmail": user.email,
           'orderName': element['itemName'],
           'price': element['price'],
           "isActive": true,
           "status": "Pending",
           "placed_at": timestamp,
-          "custom": customItems.isNotEmpty ? customItem : []
+          "custom": customItems.isNotEmpty ? customItem : [],
+          'feedBack':"",
+          'deliverer':"",
+          'deliveryTime':"",
         };
 
         await FirebaseFirestore.instance.collection("orders").add(orderData);
@@ -316,7 +365,7 @@ String payementDetails = "";
                   onPressed: () {
                     Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
                       builder: (context) {
-                        return const MyHomePage();
+                        return const BottomNav();
                       },
                     ), (route) => false);
                   },
@@ -346,12 +395,11 @@ String payementDetails = "";
 
   @override
   Widget build(BuildContext context) {
-    if(isLoading){
+    if (isLoading) {
       return const AppLoader();
     }
     return Container(
       width: MediaQuery.of(context).size.width,
-     
       padding: EdgeInsets.all(16.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -368,42 +416,45 @@ String payementDetails = "";
           ToggleButtons(
             borderRadius: BorderRadius.circular(16),
             selectedColor: AppColors.surfaceColor,
-          fillColor: AppColors.primaryColor,
+            fillColor: AppColors.primaryColor,
             isSelected: [_cardSelected, _gpaySelected, _cashOnDeliverySelected],
             onPressed: _toggleSelection,
             children: [
-               Padding(
-                 padding: const EdgeInsets.all(8.0),
-                 child: SizedBox(
-                  width: MediaQuery.of(context).size.width/4,
-                  child: Text('Card',style: TextStyle(fontSize: 20),)),
-               ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SizedBox(
+                    width: MediaQuery.of(context).size.width / 4,
+                    child: Text(
+                      'Card',
+                      style: TextStyle(fontSize: 20),
+                    )),
+              ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: SizedBox(
                     height: 50,
-                    width: MediaQuery.of(context).size.width/4,
-                    child: Image.asset(
-                        'assets/items/gpay.png')),
+                    width: MediaQuery.of(context).size.width / 4,
+                    child: Image.asset('assets/items/gpay.png')),
               ), // Replace with your GPay logo path
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: SizedBox(
-                   width: MediaQuery.of(context).size.width/4,
-                  child: const Text('Cash on Delivery',style: TextStyle(fontSize: 20),)),
+                    width: MediaQuery.of(context).size.width / 4,
+                    child: const Text(
+                      'Cash on Delivery',
+                      style: TextStyle(fontSize: 20),
+                    )),
               ),
             ],
           ),
           const SizedBox(height: 16.0),
-
-
-          if(_gpaySelected)
-          TextField(
-            controller: _gpayController,
-                 decoration: const InputDecoration(
-                    labelText: 'Upi ID',
-                  ),
-          ),
+          if (_gpaySelected)
+            TextField(
+              controller: _gpayController,
+              decoration: const InputDecoration(
+                labelText: 'Upi ID',
+              ),
+            ),
           if (_cardSelected)
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -429,38 +480,42 @@ String payementDetails = "";
               ],
             ),
           const SizedBox(height: 16.0),
-           SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    child: MaterialButton(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16)),
-                      color: AppColors.primaryColor,
-                      onPressed: () {
-                   if(_cardSelected||_gpaySelected||_cashOnDeliverySelected){
-                      placeOrder();
-                  
-                   }else{
-                    showDialog(context: context, builder:(context) {
+          SizedBox(
+            width: MediaQuery.of(context).size.width,
+            child: MaterialButton(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16)),
+              color: AppColors.primaryColor,
+              onPressed: () {
+                if (_cardSelected || _gpaySelected || _cashOnDeliverySelected) {
+                  placeOrder();
+                } else {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
                       return AlertDialog(
                         title: const Text("Choose a payment option"),
                         actions: [
-                          ElevatedButton(onPressed: () {
-                            Navigator.pop(context);
-                          }, child: Text("Ok"))
+                          ElevatedButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: Text("Ok"))
                         ],
                       );
-                    },);
-                   }
-                      },
-                      child: const Text(
-                        "Confirm order",
-                        style: TextStyle(
-                            color: AppColors.surfaceColor,
-                            fontSize: 25,
-                            fontWeight: FontWeight.w600),
-                      ),
-                    ),
-                  )
+                    },
+                  );
+                }
+              },
+              child: const Text(
+                "Confirm order",
+                style: TextStyle(
+                    color: AppColors.surfaceColor,
+                    fontSize: 25,
+                    fontWeight: FontWeight.w600),
+              ),
+            ),
+          )
         ],
       ),
     );

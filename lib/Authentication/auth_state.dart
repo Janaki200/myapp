@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:myapp/Authentication/login_or_register.dart';
+import 'package:myapp/bottom_nav.dart';
 import 'package:myapp/home.dart';
 
 class AuthState extends StatelessWidget {
@@ -10,7 +11,7 @@ class AuthState extends StatelessWidget {
   Widget build(BuildContext context) {
     return StreamBuilder(stream: FirebaseAuth.instance.authStateChanges(), builder: (context, snapshot) {
       if (snapshot.hasData) {
-        return MyHomePage();
+        return BottomNav();
       }else   {
         return LoginOrRegister();
       }
