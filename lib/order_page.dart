@@ -90,7 +90,7 @@ class _OrderPageState extends State<OrderPage> {
 
                     List customItems = docs?[index]['custom'];
                     if (docs?[index]['status'].toString().toLowerCase() ==
-                        "delivered") {
+                        "completed") {
                       return Padding(
                           padding: const EdgeInsets.all(10),
                           child: Container(
@@ -143,7 +143,7 @@ class _OrderPageState extends State<OrderPage> {
                                                 DataCell(
                                                     Text(itemData['item'])),
                                                 DataCell(
-                                                    Text(itemData["portion"])),
+                                                    Text(itemData["portion"]+"(g)")),
                                                 DataCell(Text(itemData[
                                                         'quantity']
                                                     .toString())), // Ensure correct data type
@@ -171,7 +171,7 @@ class _OrderPageState extends State<OrderPage> {
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             Text("Delivered by :"+docs?[index]['deliverer']),
-                                            Text("Delivering In :"+docs?[index]['deliveryTime'],style: TextStyle(color: AppColors.primaryColor),),
+                                            Text("Delivered:"+docs?[index]['deliveryTime']+" minutes",style: TextStyle(color: AppColors.primaryColor),),
                                           ],
                                         ),
                                       ),
@@ -337,7 +337,7 @@ class _OrderPageState extends State<OrderPage> {
                                                 DataCell(
                                                     Text(itemData['item'])),
                                                 DataCell(
-                                                    Text(itemData["portion"])),
+                                                    Text(itemData["portion"]+"(g)")),
                                                 DataCell(Text(itemData[
                                                         'quantity']
                                                     .toString())), // Ensure correct data type
@@ -422,7 +422,7 @@ class _OrderPageState extends State<OrderPage> {
                                                 DataCell(
                                                     Text(itemData['item'])),
                                                 DataCell(
-                                                    Text(itemData["portion"])),
+                                                    Text(itemData["portion"]+"(g)")),
                                                 DataCell(Text(itemData[
                                                         'quantity']
                                                     .toString())), // Ensure correct data type
@@ -449,7 +449,7 @@ class _OrderPageState extends State<OrderPage> {
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             Text("Delivered by :"+docs?[index]['deliverer']),
-                                            Text("Delivering In :"+docs?[index]['deliveryTime'],style: TextStyle(color: AppColors.primaryColor),),
+                                            Text("Delivering In :"+docs?[index]['deliveryTime']+" minutes",style: TextStyle(color: AppColors.primaryColor),),
                                           ],
                                         ),
                                       ),

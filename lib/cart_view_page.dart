@@ -328,7 +328,7 @@ class _PaymentBottomSheetState extends State<PaymentBottomSheet> {
           for (var e in customItems) {
             final data = {
               'item': e['name'],
-              'portion':"${e['qty'] * 50}₹",
+              'portion':"${e['qty'] * 50}",
               'quantity':e['qty'].toString(),
               'price':e['price'].toString()
             };
